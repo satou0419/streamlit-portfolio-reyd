@@ -1,17 +1,14 @@
 import streamlit as st
 from PIL import Image, ImageOps, ImageDraw
+import os
 
 st.set_page_config(
     page_title="Reyd",
     page_icon="💀",
 )
 
-# Function to make an image circular and enforce a specific size
 def make_image_circular(img, size=(100, 100)):
-    # Resize the image
     img = img.resize(size, Image.Resampling.LANCZOS)
-    
-    # Make the image circular
     np_img = ImageOps.fit(img, size, centering=(0.5, 0.5))
     mask = Image.new('L', np_img.size, 0)
     draw = ImageDraw.Draw(mask)
@@ -19,18 +16,30 @@ def make_image_circular(img, size=(100, 100)):
     np_img.putalpha(mask)
     return np_img
 
+def load_image(path, fallback_path=None):
+    try:
+        image = Image.open(path)
+    except FileNotFoundError:
+        if fallback_path and os.path.exists(fallback_path):
+            image = Image.open(fallback_path)
+        else:
+            st.error(f"Image not found: {path} and {fallback_path}")
+            return None
+    return image
+
 # Sidebar content
 with st.sidebar:
     st.header("Personal Details")
     
-    # Load the image, make it circular, and resize it
-    image = Image.open("src/assets/garcia.png")
-    circular_image = make_image_circular(image, size=(100, 100))  # Adjust the size here
+    # Attempt to load the image with fallback
+    image_path = "src/assets/garcia.png"
+    fallback_path = "assets/garcia.png"
+    image = load_image(image_path, fallback_path)
     
-    # Display the circular image with a fixed width
-    st.image(circular_image, width=100)  # Set width to enforce display size
+    if image:
+        circular_image = make_image_circular(image, size=(100, 100))
+        st.image(circular_image, width=100)  # Set width to enforce display size
     
-    # Display the personal details using Markdown
     st.markdown("**Zodiac Sign:** Aries ♈")
     st.markdown("**Birthstone:** Diamond 💎")
     st.markdown("**Year of the Rabbit:** 兔")
@@ -47,7 +56,6 @@ with left_col:
         """
     )
 
-    # Add social media links with alternative icons
     st.markdown(
         """
         <style>
@@ -78,12 +86,16 @@ with left_col:
     st.button("Message Me")
 
 with right_col:
-    st.image("src/assets/myBanner.png", use_column_width=True)
+    image_path = "src/assets/myBanner.png"
+    fallback_path = "assets/myBanner.png"
+    image = load_image(image_path, fallback_path)
+    
+    if image:
+        st.image(image, use_column_width=True)
 
 st.markdown("---")
 st.title("Tech Stack")
 
-# Define tech stack categories and colored logos
 categories = {
     "Front-End": [
         {"name": "JavaScript", "logo": "https://www.svgrepo.com/show/353925/javascript.svg"},
@@ -116,10 +128,18 @@ categories = {
         {"name": "Render", "logo": "https://www.svgrepo.com/show/354890/render.svg"},
         {"name": "Aiven", "logo": "https://www.svgrepo.com/show/464379/aiven.svg"},
         {"name": "Vercel", "logo": "https://www.svgrepo.com/show/361653/vercel-logo.svg"}
+    ],
+    "Databases": [
+        {"name": "MongoDB", "logo": "https://www.svgrepo.com/show/354370/mongodb.svg"},
+        {"name": "SQLite", "logo": "https://www.svgrepo.com/show/360570/sqlite.svg"},
+        {"name": "MySQL", "logo": "https://www.svgrepo.com/show/327527/mysql.svg"}
+    ],
+    "Languages & Frameworks": [
+        {"name": "PHP", "logo": "https://www.svgrepo.com/show/303551/php.svg"},
+        {"name": "Flask", "logo": "https://www.svgrepo.com/show/436157/flask.svg"}
     ]
 }
 
-# CSS for card styling and animations
 st.markdown(
     """
     <style>
@@ -151,14 +171,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Create cards for each category
 for category, items in categories.items():
     st.markdown(f"### {category}")
-    
-    # Container for cards
     st.markdown('<div class="cards-container">', unsafe_allow_html=True)
-    
-    # Display items in rows of 3
     for i in range(0, len(items), 3):
         row_items = items[i:i + 3]
         cols = st.columns(len(row_items))
