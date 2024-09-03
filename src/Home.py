@@ -27,23 +27,6 @@ def load_image(path, fallback_path=None):
             return None
     return image
 
-# Sidebar content
-with st.sidebar:
-    st.header("Personal Details")
-    
-    # Attempt to load the image with fallback
-    image_path = "src/assets/garcia.png"
-    fallback_path = "assets/garcia.png"
-    image = load_image(image_path, fallback_path)
-    
-    if image:
-        circular_image = make_image_circular(image, size=(100, 100))
-        st.image(circular_image, width=100)  # Set width to enforce display size
-    
-    st.markdown("**Zodiac Sign:** Aries ♈")
-    st.markdown("**Birthstone:** Diamond 💎")
-    st.markdown("**Year of the Rabbit:** 兔")
-
 # Main page content
 left_col, right_col = st.columns(2)
 
@@ -87,7 +70,7 @@ with left_col:
 
 with right_col:
     image_path = "src/assets/myBanner.png"
-    fallback_path = "assets/myBanner.png"
+    fallback_path = "src/assets/myBanner.png"
     image = load_image(image_path, fallback_path)
     
     if image:
@@ -114,29 +97,29 @@ categories = {
         {"name": "Express", "logo": "https://www.svgrepo.com/show/353724/express.svg"}
     ],
     "Languages": [
-        {"name": "C", "logo": "https://www.svgrepo.com/show/347724/c.svg"},
-        {"name": "C++", "logo": "https://www.svgrepo.com/show/347739/c-plusplus.svg"},
-        {"name": "C#", "logo": "https://www.svgrepo.com/show/452207/c-sharp.svg"}
+        {"name": "C", "logo": "https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png"},
+        {"name": "C++", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1822px-ISO_C%2B%2B_Logo.svg.png"},
+        {"name": "C#", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Logo_C_sharp.svg/1200px-Logo_C_sharp.svg.png"}
     ],
     "Tools": [
         {"name": "VSCode", "logo": "https://www.svgrepo.com/show/374171/vscode.svg"},
         {"name": "Git", "logo": "https://www.svgrepo.com/show/452210/git.svg"},
         {"name": "Docker", "logo": "https://www.svgrepo.com/show/448221/docker.svg"}
     ],
-    "Deployment": [
+    "Deployment": [        
+        {"name": "Render", "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQATbZwZHm43PN4_D2BooUaP--zflkHet-oTw&s"},
         {"name": "Azure", "logo": "https://www.svgrepo.com/show/331302/azure-v2.svg"},
-        {"name": "Render", "logo": "https://www.svgrepo.com/show/354890/render.svg"},
-        {"name": "Aiven", "logo": "https://www.svgrepo.com/show/464379/aiven.svg"},
+        {"name": "Aiven", "logo": "https://www.drupal.org/files/aiven-logo_RGB.png"},
         {"name": "Vercel", "logo": "https://www.svgrepo.com/show/361653/vercel-logo.svg"}
     ],
     "Databases": [
-        {"name": "MongoDB", "logo": "https://www.svgrepo.com/show/354370/mongodb.svg"},
-        {"name": "SQLite", "logo": "https://www.svgrepo.com/show/360570/sqlite.svg"},
-        {"name": "MySQL", "logo": "https://www.svgrepo.com/show/327527/mysql.svg"}
+        {"name": "MongoDB", "logo": "https://1000logos.net/wp-content/uploads/2020/08/MongoDB-Logo.png"},
+        {"name": "SQLite", "logo": "https://dwglogo.com/wp-content/uploads/2018/03/SQLite_logo.png"},
+        {"name": "MySQL", "logo": "https://upload.wikimedia.org/wikipedia/labs/8/8e/Mysql_logo.png"}
     ],
     "Languages & Frameworks": [
-        {"name": "PHP", "logo": "https://www.svgrepo.com/show/303551/php.svg"},
-        {"name": "Flask", "logo": "https://www.svgrepo.com/show/436157/flask.svg"}
+        {"name": "PHP", "logo": "https://pngimg.com/d/php_PNG10.png"},
+        {"name": "Flask", "logo": "https://miro.medium.com/v2/resize:fit:438/1*dQvABiWzbE28OTPYjzElKw.png"}
     ]
 }
 
@@ -189,3 +172,52 @@ for category, items in categories.items():
                     unsafe_allow_html=True
                 )
     st.markdown('</div>', unsafe_allow_html=True)
+# Add JLPT Certificate Section
+st.markdown("---")
+st.title("Certifications")
+
+left_col, right_col = st.columns(2)
+
+with left_col:
+    jlpt_image_path = "src/assets/jlpt.png"
+    jlpt_fallback_path = "src/assets/jlpt.png"
+    jlpt_image = load_image(jlpt_image_path, jlpt_fallback_path)
+
+    if jlpt_image:
+        st.image(jlpt_image, use_column_width=True)
+
+with right_col:
+    st.subheader("Japanese-Language Proficiency Test (JLPT) N5")
+    st.write(
+        """
+        🎓 **Certification Achieved**: JLPT N5 (4 years ago)
+        
+        This certification marks my initial achievement in Japanese language proficiency. As I continue my Nihongo studies, this milestone represents a strong foundation in reading, writing, and understanding Japanese. I am committed to advancing my skills and exploring higher proficiency levels as part of my ongoing language education.
+        """
+    )
+
+st.markdown(
+    """
+    <style>
+    .certification-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+    }
+    .certification-text {
+        margin-left: 20px;
+    }
+    </style>
+    
+    """,
+    unsafe_allow_html=True
+)
+
+    
+
