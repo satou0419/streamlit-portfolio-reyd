@@ -102,7 +102,8 @@ def display_education():
     st.title("Education Background")
     st.write("Here's a summary of my educational journey:")
 
-    for edu in education:
+    # Display the first three entries with merged experience and achievements
+    for edu in education[:3]:
         with st.container():
             col1, col2 = st.columns([1, 3])
             with col1:
@@ -122,7 +123,33 @@ def display_education():
                         <p><strong>Degree/Program:</strong> {edu['degree']}</p>
                         {'<p><strong>Location:</strong> ' + edu['location'] + '</p>' if 'location' in edu else ''}
                         <p><strong>Dates Attended:</strong> {edu['dates']}</p>
-                        {'<h4>Academic Experience:</h4>' + ''.join([f'<p><strong>{exp["title"]}:</strong><br />' + '<br />'.join(exp["details"]) + '<br /><i>Dates:</i> ' + exp["dates"] + '</p>' for exp in edu.get("academic_experience", [])])}
+                        {'<h4>Experience and Achievements:</h4>' + ''.join([f'<p><strong>{exp["title"]}:</strong><br />' + '<br />'.join(exp["details"]) + '<br /><i>Dates:</i> ' + exp["dates"] + '</p>' for exp in edu.get("academic_experience", [])])}
+                        {'<ul>' + ''.join([f'<li>{ach}</li>' for ach in edu.get("achievements", [])]) + '</ul>' if 'achievements' in edu else ''}
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+    # Display the last two entries separately
+    for edu in education[3:]:
+        with st.container():
+            col1, col2 = st.columns([1, 3])
+            with col1:
+                st.markdown(
+                    f"""
+                    <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                        <img src="{edu['logo']}" style="max-width: 120px; max-height: 120px; border-radius: 8px;" />
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+            with col2:
+                st.markdown(
+                    f"""
+                    <div style="border: 1px solid {edu['color']}; padding: 20px; border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                        <h3 style="margin-top: 0; text-align: center;">{edu['institution']}</h3>
+                        <p><strong>Degree/Program:</strong> {edu['degree']}</p>
+                        <p><strong>Dates Attended:</strong> {edu['dates']}</p>
                         {'<h4>Achievements:</h4>' + '<ul>' + ''.join([f'<li>{ach}</li>' for ach in edu.get("achievements", [])]) + '</ul>'}
                     </div>
                     """,

@@ -57,16 +57,13 @@ with left_col:
         }
         </style>
         <div class="social-buttons">
-            <a href="https://github.com/yourusername" target="_blank"><img src="https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=FFFFFF" alt="GitHub"></a>
-            <a href="https://www.upwork.com/freelancers/~yourprofile" target="_blank"><img src="https://simpleicons.org/icons/upwork.svg" alt="Upwork"></a>
-            <a href="https://www.linkedin.com/in/yourprofile" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=FFFFFF" alt="LinkedIn"></a>
+            <a href="https://github.com/satou0419" target="_blank"><img src=https://www.svgrepo.com/show/439171/github.svg alt="GitHub"></a>
+            <a href="https://www.upwork.com/freelancers/~01b6d763f70fcce8f2" target="_blank"><img src=https://www.svgrepo.com/show/516513/freelancer-upwork.svg alt="Upwork"></a>
+            <a href="https://www.linkedin.com/in/rey-dante-garcia-7a7b8a219/" target="_blank"><img src= https://www.svgrepo.com/show/416903/internet-linkedln-media.svg alt="LinkedIn"></a>
         </div>
         """,
         unsafe_allow_html=True
     )
-
-    st.markdown("######")
-    st.button("Message Me")
 
 with right_col:
     image_path = "src/assets/myBanner.png"
@@ -172,6 +169,7 @@ for category, items in categories.items():
                     unsafe_allow_html=True
                 )
     st.markdown('</div>', unsafe_allow_html=True)
+
 # Add JLPT Certificate Section
 st.markdown("---")
 st.title("Certifications")
@@ -187,7 +185,7 @@ with left_col:
         st.image(jlpt_image, use_column_width=True)
 
 with right_col:
-    st.subheader("Japanese-Language Proficiency Test (JLPT) N5")
+    st.subheader("Japanese-Language Proficiency Test (JLPT Mock) N5")
     st.write(
         """
         🎓 **Certification Achieved**: JLPT N5 (4 years ago)
@@ -218,6 +216,3 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
-    
-
