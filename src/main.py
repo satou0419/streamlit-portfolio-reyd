@@ -24,7 +24,7 @@ with st.sidebar:
     st.header("Personal Details")
     
     # Load the image, make it circular, and resize it
-    image = Image.open("./assets/garcia.png")
+    image = Image.open("src/assets/garcia.png")
     circular_image = make_image_circular(image, size=(100, 100))  # Adjust the size here
     
     # Display the circular image with a fixed width
@@ -78,7 +78,7 @@ with left_col:
     st.button("Message Me")
 
 with right_col:
-    st.image("./assets/myBanner.png", use_column_width=True)
+    st.image("src/assets/myBanner.png", use_column_width=True)
 
 st.markdown("---")
 st.title("Tech Stack")
